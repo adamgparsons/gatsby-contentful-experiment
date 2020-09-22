@@ -10,6 +10,19 @@ export const query = graphql`
       video
       description {
         json
+        content {
+        data {
+          target {
+            fields {
+              file {
+                en_US {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
       }
       author {
         name
