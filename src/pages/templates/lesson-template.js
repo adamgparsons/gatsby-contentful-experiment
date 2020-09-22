@@ -26,27 +26,27 @@ export const query = graphql`
 `
 
 const LessonTemplate = ({ data: { lesson } }) => (
+  <div>
+    <h1>{lesson.title}</h1>
+    <p>
+      Guest: {lesson.author.name} · <a href={lesson.author.twitter}>Twitter</a>
+    </p>
     <div>
-        <h1>{lesson.title}</h1>
-        <p>
-            Guest: {lesson.author.name} · <a href={lesson.author.twitter}>Twitter</a>
-        </p>
-        <div>
-            {documentToReactComponents(lesson.description.json, {
-                renderNode: {
-                    [BLOCKS.HEADING_2]: (_node, children) => (
-                        <h2 style={{ color: "red" }}>{children}</h2>
-                    ),
-                    [BLOCKS.EMBEDDED_ASSET]: node => (
-                        <img
-                            src={`${node.data.target.fields.file["en-US"].url}?w=300&q=90`}
-                            alt={node.data.target.fields.title["en-US"]}
-                        />
-                    ),
-                },
-            })}
-        </div>
+      {documentToReactComponents(lesson.description.json, {
+        renderNode: {
+          [BLOCKS.HEADING_2]: (_node, children) => (
+            <h2 style={{ color: "red" }}>{children}</h2>
+          ),
+          [BLOCKS.EMBEDDED_ASSET]: node => (
+            <img
+              src={node.data.target.fields.file["en-US"].url}
+              alt={node.data.target.fields.title["en-US"]}
+            />
+          ),
+        },
+      })}
     </div>
+  </div>
 )
 
 export default LessonTemplate
