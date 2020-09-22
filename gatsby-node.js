@@ -1,7 +1,25 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+exports.createPages = async ({ actions, graphql, reporter }) => {
+    const result = await graphql(`
+    {
+        allContentfulLesson {
+        nodes {
+          slug
+        }
+      }
+    }
+    `)
 
-// You can delete this file if you're not using it
+    if (reporter.errors) {
+        reporter.panic('Error loading lessons', JSON.stringify(result.errors))
+    }
+    result.data.allContentfulLesson.nodes.forEach(lesson => {
+        actions.createPage({
+            path: `/${lesson.slug}/`,
+            component: require.resolve('./src/pages/templates/lesson-template.js'),
+            context: {
+                slug: lesson.slug,
+            }
+        })
+    });
+}
+
