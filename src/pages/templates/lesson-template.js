@@ -38,8 +38,10 @@ const LessonTemplate = ({ data: { lesson } }) => (
             <h2 style={{ color: "red" }}>{children}</h2>
           ),
           [BLOCKS.EMBEDDED_ASSET]: node => (
+
+            // console.log(node.data.target.fields.file['en-US'].url)
             <img
-              src={node.data.target.fields.file["en-US"].url}
+              src={node.data.target.fields.file['en-US'].url}
               alt={node.data.target.fields.title["en-US"]}
             />
           ),
