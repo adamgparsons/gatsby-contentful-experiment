@@ -41,7 +41,7 @@ const LessonTemplate = ({ data: { lesson } }) => (
 
             // console.log(node.data.target.fields.file['en-US'].url)
             <img
-              src={node.data.target.fields.file['en-US'].url}
+              src={node.data.target.fields.file["en-US"].url}
               alt={node.data.target.fields.title["en-US"]}
             />
           ),
